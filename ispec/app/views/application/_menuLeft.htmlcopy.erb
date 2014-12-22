@@ -1,0 +1,92 @@
+<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
+  <div id="tabs" class="row">
+    <div  style="min-height: 1000px;position: fixed;float:right;width:70px;margin-left: 395px;padding-left: 10px;" class="col-md-2 right" >
+      <nav>
+        <br/>
+        <br/>
+        <a style="color:#fff" href="#"></a>
+        <a style="color:#fff" href="#a"onclick="" ><i class="fa fa-archive fa-2x"></i></a>
+        <a style="color:#fff" href="#b"><i class="fa fa-file fa-2x"></i></a>
+        <a style="color:#fff" href="#c"><i class="fa fa-folder-open fa-2x"></i></a>
+
+      </nav>
+    </div>
+    <div class="col-md-10 left">
+
+        <div id="a">
+          Content of A
+
+
+
+      <%= select("preferences", :tag_with,
+                 ["Politics", "Technology", "Entertainment", "Sports", "Science", "Crime",
+                  "Business", "Social", "Nature", "Other"], :prompt => "Filter Feed by:" )%>
+
+      <% @products.each do |product| %>
+
+              <div  class="col-md-6">
+                <h4><%= product.title %></h4>
+                <p><%= image_tag(product.image, :width => 100) if product.image.present? %></p>
+                <p><%= product.sku %></p>
+                <p><%= product.price %></p>
+                <p><%= product.description %></p>
+                <p><%= link_to "add",edit_product_path(product), :class => "btn btn-default", :remote => true ,"data-toggle" => "modal", "data-target" => "#productModal" %></p>
+              </div>
+
+      <% end %>
+          </div>
+      <div id="b">
+        Content of B
+
+
+
+        <%= select("preferences", :tag_with,
+                   ["Politics", "Technology", "Entertainment", "Sports", "Science", "Crime",
+                    "Business", "Social", "Nature", "Other"], :prompt => "Filter Feed by:" )%>
+
+        <% @products.each do |product| %>
+
+            <div  class="col-md-6">
+              <h4><%= product.title %></h4>
+              <p><%= image_tag(product.image, :width => 100) if product.image.present? %></p>
+              <p><%= product.sku %></p>
+              <p><%= product.price %></p>
+              <p><%= product.description %></p>
+              <p><%= link_to "add",edit_product_path(product), :class => "btn btn-default", :remote => true ,"data-toggle" => "modal", "data-target" => "#productModal" %></p>
+            </div>
+
+        <% end %>
+      </div>
+    </div>
+
+    </div>
+</div>
+
+<div id="tabs">
+  <ul>
+    <li>
+      <a href="#a">Tab A</a>
+    </li>
+    <li>
+      <a href="#b">Tab B</a>
+    </li>
+    <li>
+      <a href="#c">Tab C</a>
+    </li>
+    <li>
+      <a href="#d">Tab D</a>
+    </li>
+  </ul>
+  <div id="a">
+    Content of A
+  </div>
+  <div id="b">
+    Content of B
+  </div>
+  <div id="c">
+    Content of C
+  </div>
+  <div id="d">
+    Content of D
+  </div>
+</div>

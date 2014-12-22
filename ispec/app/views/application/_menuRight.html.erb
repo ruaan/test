@@ -1,0 +1,75 @@
+<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right">
+  <div id="tabs2" class="row">
+    <div class="col-md-2 mainleft" >
+      <ul class="topspace">
+           <br/>
+
+
+        <li></li>
+        <li class="icons">
+          <a style="color:#fff" target="_blank" class="print" href="<%= @projects.id %>/pdf.pdf" ><i class="fa fa-print fa-2x"></i></a>
+
+        </li>
+
+        <li class="icons">
+          <a style="color:#fff" class="toggle-menu menu-right email" href="#email"  ><i class="fa fa-archive fa-2x"></i></a>
+
+        </li>
+
+        <li class="icons">
+          <a style="color:#fff" class="toggle-menu menu-right sap" href="#sap"><i class="fa fa-folder-open fa-2x"></i></a>
+        </li>
+
+      </ul>
+    </div>
+        <div class="col-md-10 ">
+
+          <div id="email">
+            <div class="efirst">
+              <h4>Select Email type</h4>
+              <form>
+
+                <select id="theselect">
+                  <option value="">Please select</option>
+                  <option value="<%= @projects.id %>/tech.pdf">Technical Spec</option>
+                  <option value="<%= @projects.id %>/noprice.pdf">Technical without Pricing</option>
+                  <option value="<%= @projects.id %>/noprice.pdf">Spec without Pricing</option>
+                  <% if can? :update , @projects %>
+                 <!-- <option value="/products.xls">Excel Spec</option> -->
+                      <% end %>
+                  <option value="<%= @projects.id %>/pdf.pdf">Consolidated Spec</option>
+                  <option value="<%= @projects.id %>/pdf.pdf">Consolidated Spec No Price</option>
+                </select>
+                <br/>
+                <br/>
+                <button id="buttons" class="btn btn-default" type="button">Send</button>
+              </form>
+              <script>
+                  $('#buttons').click(function() {
+                      var url = $('#theselect').val();
+                      window.open(url);
+                  });
+              </script>
+           </div>
+           </div>
+          <div id="sap">
+            <br/><br/>
+            <div class="first">Please login to push to SAP.</div><br/>
+            <input id="name" name="name" type="text" class="first" style="margin-bottom: 10px;" placeholder="I905CASHIER1" /><br/>
+            <input id="pass" name="pass" type="text" class="first" placeholder="tangent"  />
+
+            <p id="pass" class="first">Please enter rep code:</p>
+            <input id="pass" name="rep" type="text" class="first" placeholder="I905"  />
+
+            <div id="loading"></div>
+            <div id="message"></div>
+            <br/>
+
+            <p><button type="button" id="send-zzn" class="btn btn-default">Login and Send</button></p>
+
+          </div>
+    </div>
+  </div>
+</div>
+
+

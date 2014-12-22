@@ -1,4 +1,10 @@
-<h2>Log in</h2>
+
+<div id="login">
+  <div class="well">
+<h2>Welcome to iSpec</h2>
+
+<p id="heading" >Please Login to continue.</p>
+<br/>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div><%= f.label :email %><br />
@@ -10,8 +16,10 @@
   <% if devise_mapping.rememberable? -%>
     <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
   <% end -%>
-
-  <div><%= f.submit "Log in" %></div>
+<br/>
+  <div><%= f.submit "Log in" ,:class => "btn btn-primary" %></div>
 <% end %>
-
+<br/>
 <%= render "devise/shared/links" %>
+</div>
+</div>

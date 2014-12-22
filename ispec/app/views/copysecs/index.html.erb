@@ -1,0 +1,31 @@
+<h1>Listing copysecs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Section</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @copysecs.each do |copysec| %>
+      <tr>
+        <td><%= copysec.project_id %></td>
+        <td><%= copysec.section_id %></td>
+        <td><%= copysec.name %></td>
+        <td><%= copysec.description %></td>
+        <td><%= link_to 'Show', copysec %></td>
+        <td><%= link_to 'Edit', edit_copysec_path(copysec) %></td>
+        <td><%= link_to 'Destroy', copysec, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Copysec', new_copysec_path %>

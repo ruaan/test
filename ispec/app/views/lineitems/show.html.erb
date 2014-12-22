@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @lineitem.image %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @lineitem.title %>
+</p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @lineitem.sku %>
+</p>
+
+<p>
+  <strong>Catagory:</strong>
+  <%= @lineitem.catagory %>
+</p>
+
+<p>
+here
+  <%= best_in_place @lineitem, :quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @lineitem.price %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @lineitem.description %>
+</p>
+
+<p>
+  <strong>Subdescription:</strong>
+  <%= @lineitem.subdescription %>
+</p>
+
+<%= link_to 'Edit', edit_lineitem_path(@lineitem) %> |
+<%= link_to 'Back', lineitems_path %>

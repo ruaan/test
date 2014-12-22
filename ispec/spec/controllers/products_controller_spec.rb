@@ -23,7 +23,7 @@ describe ProductsController do
   # This should return the minimal set of attributes required to create a valid
   # Product. As you add validations to Product, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "subsection_id" => "1" } }
+  let(:valid_attributes) { { "image" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe ProductsController do
       it "assigns a newly created but unsaved product as @product" do
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
-        post :create, {:product => { "subsection_id" => "invalid value" }}, valid_session
+        post :create, {:product => { "image" => "invalid value" }}, valid_session
         assigns(:product).should be_a_new(Product)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
-        post :create, {:product => { "subsection_id" => "invalid value" }}, valid_session
+        post :create, {:product => { "image" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe ProductsController do
         # specifies that the Product created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Product.any_instance.should_receive(:update).with({ "subsection_id" => "1" })
-        put :update, {:id => product.to_param, :product => { "subsection_id" => "1" }}, valid_session
+        Product.any_instance.should_receive(:update).with({ "image" => "MyString" })
+        put :update, {:id => product.to_param, :product => { "image" => "MyString" }}, valid_session
       end
 
       it "assigns the requested product as @product" do
@@ -128,7 +128,7 @@ describe ProductsController do
         product = Product.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
-        put :update, {:id => product.to_param, :product => { "subsection_id" => "invalid value" }}, valid_session
+        put :update, {:id => product.to_param, :product => { "image" => "invalid value" }}, valid_session
         assigns(:product).should eq(product)
       end
 
@@ -136,7 +136,7 @@ describe ProductsController do
         product = Product.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Product.any_instance.stub(:save).and_return(false)
-        put :update, {:id => product.to_param, :product => { "subsection_id" => "invalid value" }}, valid_session
+        put :update, {:id => product.to_param, :product => { "image" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

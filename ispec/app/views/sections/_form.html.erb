@@ -11,21 +11,24 @@
     </div>
   <% end %>
 
+
+
+
+      <%= f.hidden_field :project_id, :value => @project.id.to_s %>
+
+
+
   <div class="field">
-    <%= f.label :project_id %><br>
-    <%= f.number_field :project_id %>
+    <%= f.label "Section Name:" %> <br>
+    <%= f.text_field :name %><p>E.g. First Floor</p>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label "Description:" %><br>
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :misc %><br>
-    <%= f.text_field :misc %>
+
+    <%= f.hidden_field :misc %>
   </div>
   <div class="actions">
     <%= f.submit %>

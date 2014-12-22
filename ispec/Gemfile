@@ -1,35 +1,83 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails_12factor', group: :production
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.8'
+
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-gem 'pg'
+
+# Mysql 
+
+#gem 'mysql2'
+
+#font awesome
 gem 'font-awesome-sass'
+
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
+
+#drag ad drop
+gem 'jquery-form-validator-rails', '~> 0.0.1'
+gem 'touchpunch-rails'
+gem "font-awesome-rails"
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
+
+gem 'growlyflash'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #gem 'therubyracer', platforms: :ruby
 
+gem 'prawn', '~> 1.3.0'
+gem 'prawn-table', '~> 0.2.0'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'jquery-ui-rails'
+
+#dynamic form elements
+
+#gem "dynamic_form"
+
+#in place edit for trainign mode
+
+gem 'best_in_place', '~> 3.0.1'
+
+#json gem
+
+#
+gem 'json'
+
+#gem 'rails-api'
+
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
+gem 'jquery-turbolinks'
+
+#cloning and keeping relations
+gem 'deep_cloneable', '~> 2.0.0'
+
+#pdf creator
+
+gem "prawnto_2", :require => "prawnto"
+
+#multi step form
+
+#gem 'wicked'
 
 # elastic search
 
-gem 'elasticsearch'
+
+#gem 'elasticsearch'
 
 #Angular
 
@@ -43,10 +91,20 @@ gem 'jbuilder', '~> 1.2'
 # user accounts
 
 gem 'devise', '~> 3.3.0'
+gem 'cancan'
+#model form Cacoon
+
+gem 'cocoon'
+
+# admin tool
+#gem 'activeadmin', github: 'activeadmin'
+#gem 'activeadmin'
+#gem 'polyamorous', github: 'activerecord-hackery/polyamorous'
+#gem 'activeadmin', github: 'gregbell/active_admin'
 
 group :test, :development do
   gem "rspec"
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails"
 # gem "factory_girl_rails"
   gem "capybara"
   gem "database_cleaner"
@@ -66,9 +124,12 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+#Use debugger
+
+#gem 'debugger'
 
 gem "carrierwave"
 
 gem 'execjs'
+
+gem 'activeadmin', git: 'http://github.com/activeadmin/activeadmin'

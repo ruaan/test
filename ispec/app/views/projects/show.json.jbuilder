@@ -1,1 +1,1 @@
-json.extract! @project, :id, :customer, :name, :version, :description, :documentType, :market, :startDate, :followUp, :pricelist, :projectStage, :T, :created_at, :updated_at
+json.extract! @project, :id, :account_id, :projectName, :version, :documentType, :market, :randDollar, :randPound, :address, :contactPerson, :contactNumber, :notes, :flag, :created_at, :updated_at

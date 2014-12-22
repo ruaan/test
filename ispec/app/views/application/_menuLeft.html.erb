@@ -1,0 +1,554 @@
+<style>
+.wrapperScroll {
+display: flex;
+overflow: auto;
+height: 620px;
+margin-top: -100px;
+padding-top: 100px;
+position: relative;
+min-width: 340px;
+
+will-change: overflow;
+}
+
+.all,.tiles {overflow: auto;
+height: auto;
+padding: .5rem;
+-webkit-overflow-scrolling: touch;
+-ms-overflow-style: none;
+}
+
+.Left::-webkit-scrollbar
+ {
+display: none !important;
+}
+.tab_pane td { max-width:300px !important;"}
+</style>
+
+<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
+<div id="tabs" class="row">
+<div class="col-md-2 right mainright" >
+  <ul class="topspace">
+    <li></li>
+
+    <li class="icons" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+      <a style="color:#fff" class="toggle-menu menu-left product" href="#product" ><i class="fa fa-shopping-cart fa-2x"></i></a>
+
+    </li>
+    <% if can? :update , @project %>
+
+        <li class="icons" style="border-bottom: 1px solid #444444;">
+          <!-- <p  style="color:#fff; margin:30px 16px 20px 16px; border-bottom: 1px solid #444444;" class="project" data-toggle="modal" onclick="project()" data-target="#sectionsModal"><i class="fa fa-file fa-2x"></i></p>-->
+          <a style="color:#fff" class="toggle-menu menu-left project" href="#project" ><i class="fa fa-file-text fa-2x"></i></a>
+        </li>
+
+    <% end %>
+    <% if @project.flag == 1 %>
+        <script>$('#accountnew').hide(); </script>
+        <li class="icons">
+          <a style="color:#fff" class="toggle-menu menu-left customer" href="#customer" ><i class="fa fa-users fa-2x"></i></a>
+        </li>
+
+    <% else %>
+        <script>$('#customer').hide(); </script>
+        <li class="icons">
+          <!-- <p  style="color:#fff; margin:30px 16px 15px 16px; border-bottom: 1px solid #444444;" class="account" data-toggle="modal" onclick="account()" data-target="#sectionsModal"><i class="fa fa-folder-open fa-2x"></i></p>-->
+          <a style="color:#fff" class="toggle-menu menu-left accounts" href="#accountnew" ><i class="fa fa-users fa-2x"></i></a>
+        </li>
+    <% end %>
+    <li class="icons">
+      <a style="color:#fff" class="print" href="/welcome/index" ><i class="fa fa-th-large fa-2x"></i></a>
+
+    </li>
+
+  </ul>
+</div>
+<div class="col-md-10 left">
+<div id="product">
+
+<ul class="nav nav-tabs" role="tablist" id="myTab">
+  <li class="active"><a href="#all" role="tab" data-toggle="tab">All</a></li>
+  <li><a href="#tiles" role="tab" data-toggle="tab" >Tiles</a></li>
+  <li><a href="#taps" role="tab" data-toggle="tab">Taps</a></li>
+  <li><a href="#accessories" role="tab" data-toggle="tab">Accessories</a></li>
+  <li><a href="#sanitary" role="tab" data-toggle="tab">Sanitary ware</a></li>
+  <li><a href="#decor" role="tab" data-toggle="tab">Decor</a></li>
+  <li><a href="#furniture" role="tab" data-toggle="tab">Furniture</a></li>
+  <li><a href="#showers" role="tab" data-toggle="tab">Showers</a></li>
+  <li><a href="#other" role="tab" data-toggle="tab">Other</a></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="all">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchAll" name="search" onkeypress="checkInput('searchAll');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+  <div draggable="true" class="all">
+    <% @products.each do |product| %>
+
+
+        <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+        <div class="search-items"><%= product.description %></div>
+
+        <div class="search-items thin">
+          <%= link_to 'Add',  '#', 'data-target' => "#myModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+          <div  class="modal fade" id='<%= "myModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                </div>
+                <div class="modal-body">
+                  <%= render 'products/add', product: product %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          </div>
+        </div>
+    <% end %>
+
+
+    </div>
+    </div>
+</div>
+
+<div class="tab-pane" id="tiles">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchTiles" name="search" onkeypress="checkInput('searchTiles');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+  <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "tiles" %>
+            <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+            <div class="search-items"><%= product.description %></div>
+
+            <div class="search-items thin">
+              <%= link_to 'Add',  '#', 'data-target' => "#tileModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+              <div  class="modal fade" id='<%= "tileModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%= render 'products/add', product: product %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+            </div>
+            </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+    </div>
+    </div>
+</div>
+<div class="tab-pane" id="taps">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchTaps" name="search" onkeypress="checkInput('searchTaps');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+  <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "taps" %>
+            <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+            <div class="search-items"><%= product.description %></div>
+
+            <div class="search-items thin">
+              <%= link_to 'Add',  '#', 'data-target' => "#tapsModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+              <div  class="modal fade" id='<%= "tapsModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%= render 'products/add', product: product %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+            </div>
+            </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+    </div>
+    </div>
+</div>
+<div class="tab-pane" id="sanitary">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchSanitary" name="search" onkeypress="checkInput('searchSanitary');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+  <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "sanitary ware" %>
+            <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+            <div class="search-items"><%= product.description %></div>
+
+            <div class="search-items thin">
+              <%= link_to 'Add',  '#', 'data-target' => "#sanModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+              <div  class="modal fade" id='<%= "sanModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%= render 'products/add', product: product %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+            </div>
+            </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+    </div>
+    </div>
+</div>
+
+<div class="tab-pane" id="accessories">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchAccessories" name="search" onkeypress="checkInput('searchAccessories');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+    <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "accessories" %>
+
+            <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+            <div class="search-items"><%= product.description %></div>
+
+            <div class="search-items thin">
+              <%= link_to 'Add',  '#', 'data-target' => "#accModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+              <div  class="modal fade" id='<%= "accModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%= render 'products/add', product: product %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+            </div>
+            </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+      </div>
+    </div>
+</div>
+<div class="tab-pane" id="decor">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchDecor" name="search" onkeypress="checkInput('searchDecor');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+    <div class="tiles">
+    <% @products.each do |product| %>
+        <% if product.catagory == "decor" %>
+              <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+              <div class="search-items"><%= product.description %></div>
+
+              <div class="search-items thin">
+                <%= link_to 'Add',  '#', 'data-target' => "#decorModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+                <div  class="modal fade" id='<%= "decorModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= render 'products/add', product: product %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </div>
+              </div>
+        <% else %>
+        <% end %>
+    <% end %>
+      </div>
+    </div>
+</div>
+<div class="tab-pane" id="furniture">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchFurniture" name="search" onkeypress="checkInput('searchFurniture');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+    <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "furniture" %>
+              <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+              <div class="search-items"><%= product.description %></div>
+
+              <div class="search-items thin">
+                <%= link_to 'Add',  '#', 'data-target' => "#funModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+                <div  class="modal fade" id='<%= "funModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= render 'products/add', product: product %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </div>
+              </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+      </div>
+    </div>
+</div>
+<div class="tab-pane" id="showers">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchShowers" name="search" onkeypress="checkInput('searchShowers');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+    <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "showers" %>
+              <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+              <div class="search-items"><%= product.description %></div>
+
+              <div class="search-items thin">
+                <%= link_to 'Add',  '#', 'data-target' => "#shoModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+                <div  class="modal fade" id='<%= "shoModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= render 'products/add', product: product %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </div>
+              </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+      </div>
+    </div>
+</div>
+<div class="tab-pane" id="other">
+  <br/>
+  <br/>
+
+  <p><input type="text" id="searchOther" name="search" onkeypress="checkInput('searchOther');"  placeholder="Search Products" /></p>
+  <div class="wrapperScroll">
+    <div class="tiles">
+
+    <% @products.each do |product| %>
+        <% if product.catagory == "other" %>
+              <div class="search-items"><%= image_tag(product.image, :width => 50) if product.image.present? %>&nbsp;&nbsp;<%= product.title %>&nbsp;&nbsp;<%= product.sku%>&nbsp;&nbsp;<%= number_to_currency(product.price, unit: "R") %></div>
+
+              <div class="search-items"><%= product.description %></div>
+
+              <div class="search-items thin">
+                <%= link_to 'Add',  '#', 'data-target' => "#otherModal_#{product.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs thin" %>
+                <div  class="modal fade" id='<%= "otherModal_#{product.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= render 'products/add', product: product %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </div>
+              </div>
+        <% else %>
+        <% end %>
+    <% end %>
+
+    </div>
+    </div>
+</div>
+</div>
+
+<script>
+    $(function () {
+        $('#myTab a:last').tab('show');
+        // alert($('#testlink')[0].getAttribute('href'););
+    });
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+</script>
+
+</div>
+  <% if can? :manage , @projects %>
+<div id="project">
+  <br/>
+  <h4>Add Project Details</h4>
+  <%= render 'projects/form' %>
+</div>
+  <% end %>
+
+<div id="accountnew">
+  <br/>
+  <h4>Add Customer Details</h4>
+  <%= render 'accounts/form' %>
+  <br/>
+  <br/>
+  <% if can? :manage , @projects %>
+      <%= image_tag "/comlogo.jpg"%>
+  <% else %>
+      <%= image_tag "/logo_italtile.png",:width => "130"%>
+  <% end %>
+</div>
+
+<div id="customer">
+  <br/>
+  <h4>Change Customer Details</h4>
+  <% @accounts.each do |account| %>
+      <% account.id %>
+      <% @project.account_id %>
+      <% if account.id == @project.account_id %>
+          <%= render 'accounts/edit', account: account %>
+      <% else %>
+      <% end %>
+
+  <% end %>
+  <br/>
+  <br/>
+  <% if can? :manage , @projects %>
+      <%= image_tag "/comlogo.jpg"%>
+  <% else %>
+      <%= image_tag "/logo_italtile.png" %>
+  <% end %>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function checkInput(textbox) {
+        var textInput = document.getElementById(textbox).value;
+        $.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+            return function( elem ) {
+                return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+            };
+        });
+
+        if (textInput == "") {
+            $(".search-items").show();
+
+            $(".search-items").next().show();
+        }
+        else {
+            $(".search-items").hide();
+
+
+            $(".search-items:Contains('" + textInput + "')").show();
+            $(".search-items:Contains('" + textInput + "')").next().show();
+            //$(".thin").show();
+            $(".search-items:Contains('" + textInput + "')").next().next().show();
+        }
+    }
+    $('#myTab li').click(function() {
+        $(".search-items").show();
+    });
+
+</script>
+<% if @project.flag == 1 %>
+    <script>
+        $('#accountnew').hide();
+    </script>
+
+<% else %>
+    <script>
+        $('#customer').hide();
+    </script>
+<% end %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @install.image %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @install.title %>
+</p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @install.sku %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @install.category %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @install.price %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @install.quantity %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @install.description %>
+</p>
+
+<%= link_to 'Edit', edit_install_path(@install) %> |
+<%= link_to 'Back', installs_path %>

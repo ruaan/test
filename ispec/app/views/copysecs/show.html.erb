@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @copysec.project_id %>
+</p>
+
+<p>
+  <strong>Section:</strong>
+  <%= @copysec.section_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @copysec.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @copysec.description %>
+</p>
+
+<%= link_to 'Edit', edit_copysec_path(@copysec) %> |
+<%= link_to 'Back', copysecs_path %>

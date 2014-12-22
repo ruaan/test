@@ -1,0 +1,149 @@
+<%= form_for(@lineitem) do |f| %>
+  <% if @lineitem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lineitem.errors.count, "error") %> prohibited this lineitem from being saved:</h2>
+
+      <ul>
+      <% @lineitem.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.text_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :sku %><br>
+    <%= f.text_field :sku %>
+  </div>
+  <div class="field">
+    <%= f.label :catagory %><br>
+    <%= f.text_field :catagory %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :subdescription %><br>
+    <%= f.text_field :subdescription %>
+  </div>
+    <div class="row">
+      <div  class="col-md-1"></div>
+      <div  class="col-md-11">
+        <h4 style="font-weight:bold;">Select section to add products to: </h4>
+        <div class="field">
+
+          <%  Section.all.each do |section|   %>
+              <% for subsection in section.subsections %>
+                  <%  if section.project_id == @project.id %>
+                      <%= check_box_tag "product[subsection_ids][]", subsection.id, @lineitem.subsection_ids.include?(subsection.id), id: dom_id(subsection) %>
+                      <%= label_tag dom_id(subsection), subsection.name %><br>
+                  <%  else %>
+                  <% end %>
+              <% end %>
+          <% end %>
+
+        </div>
+
+        <input type="checkbox" id="select_all"/>
+        <label for="select_all">Check all sections</label>
+
+      </div>
+    </div>
+
+    </div>
+
+    <div class="row">
+      <div  class="col-md-1"></div>
+      <div  class="col-md-11">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" style="color:red !important;" value="">
+            <p>No Installation products needed</p>
+          </label>
+        </div>
+        <div class="checkbox">
+
+          <table>
+            <tr>
+              <td>
+                <label>
+                  <input type="checkbox" checked style="margin-top:-15px" value="checked">
+                </label>
+              </td>
+              <td width="20%">
+                <img width="40" src="/uploads/product/image/12/2147483647_19206_copy.jpg" alt="2147483647 19206 copy">
+              </td>
+              <td width="20%">Sand</td>
+              <td width="15%">ITA0014</td>
+              <td width="25%"></td>
+              <td width="20%">R60</td>
+              <td width="20%">
+            </tr>
+          </table>
+
+        </div>
+        <div class="checkbox">
+          <table>
+            <tr>
+              <td>
+                <label>
+                  <input type="checkbox" checked style="margin-top:-15px" value="checked">
+                </label>
+              </td>
+
+              <td width="20%">
+                <img width="40" src="/uploads/product/image/13/021711091109_9002_19209.jpg" alt="2147483647 19206 copy">
+              </td>
+              <td width="20%">Filler</td>
+              <td width="15%">ITA0016</td>
+              <td width="25%"></td>
+              <td width="20%">R80</td>
+              <td width="20%">
+            </tr>
+            </tr>
+          </table>
+
+        </div>
+        <div class="checkbox">
+          <table>
+            <tr>
+              <td>
+                <label>
+                  <input type="checkbox" checked style="margin-top:-15px" value="checked">
+                </label>
+              </td>
+
+              <td width="20%">
+                <img width="40" src="/uploads/product/image/14/2147483647_22100.jpg" alt="2147483647 22100">
+              </td>
+              <td width="20%">Filler</td>
+              <td width="15%">ITA0016</td>
+              <td width="25%"></td>
+              <td width="20%">R80</td>
+              <td width="20%">
+            </tr>
+            </tr>
+          </table>
+        </div>
+        <div class="actions">
+          <%= f.submit  "Add Product" %>
+        </div>
+      </div>
+
+<% end %>
+</div>
+
+

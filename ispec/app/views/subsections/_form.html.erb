@@ -13,11 +13,11 @@
 
     <div class="field">
       <%= f.label :section_id %><br>
-      <%= f.collection_select(:section_id, Section.all, :id, :name) %>
+      <%= f.collection_select(:section_id, Section.where(project_id: @project.id), :id, :name) %>
     </div>
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.label 'Subsection Name' %><br>
+    <%= f.text_field :name %><p>E.g. Bathroom</p>
   </div>
   <div class="field">
     <%= f.label :description %><br>

@@ -1,0 +1,55 @@
+
+ <div class="row-fluid">
+
+
+
+
+<div class="container theme-showcase" role="main">
+
+  <div class="page-header">
+    <h1>RECENT PROJECTS  <a href="/data/one"  style="float:right;" class="btn btn-md btn-info white">
+      <i class="fa fa-plus"></i>New Quote</a></h1>
+
+
+  </div>
+
+  <% if @project.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+        <ul>
+          <% @project.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <% growlyflash_static_notices %>
+
+</div>
+   <div id="mobile">
+     <link href="/jquery.mobile-1.4.5.css" rel="stylesheet">
+     <script src="/jquery.mobile-1.4.5.js"></script>
+
+  <div data-role="collapsible-set" data-theme="a" data-content-theme="b" data-filter="true">
+
+     <%  @accounts.each do |account|   %>
+        <div class="col-md-6">
+        <div data-role="collapsible">
+          <h2><%= account.name %></h2>
+          <ul data-role="listview" data-filter="true" data-filter-theme="a" data-divider-theme="b">
+            <% for project in account.projects %>
+                <li><%= link_to project.projectName, project_path(project) %></li>
+            <% end %>
+          </ul>
+           </div>
+        </div>
+    <% end %>
+  </div>
+
+
+
+
+
+
+
+</div> <!-- /container -->

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @version.account_id %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @version.project_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @version.user_id %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @version.version %>
+</p>
+
+<%= link_to 'Edit', edit_version_path(@version) %> |
+<%= link_to 'Back', versions_path %>

@@ -1,0 +1,27 @@
+<%= form_for(@global) do |f| %>
+  <% if @global.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@global.errors.count, "error") %> prohibited this global from being saved:</h2>
+
+      <ul>
+      <% @global.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+
+    <%= f.hidden_field :section_id, :value => params[:section_id] %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+    <br/>
+    <br/>
+  <div class="actions">
+    <%= f.submit "Save Favourite" %>
+  </div>
+<% end %>

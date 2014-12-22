@@ -1,46 +1,45 @@
 <h1>Listing projects</h1>
-<div class="row">
+
 <table>
   <thead>
     <tr>
-      <th>Customer</th>
-      <th>Name</th>
+      <th>Account</th>
+      <th>Projectname</th>
       <th>Version</th>
-      <th>Description</th>
       <th>Documenttype</th>
       <th>Market</th>
-      <th>Startdate</th>
-      <th>Followup</th>
-      <th>Pricelist</th>
-      <th>Projectstage</th>
-      <th>T</th>
+      <th>Randdollar</th>
+      <th>Randpound</th>
+      <th>Address</th>
+      <th>Contactperson</th>
+      <th>Contactnumber</th>
+      <th>Notes</th>
+      <th>Flag</th>
       <th></th>
       <th></th>
       <th></th>
     </tr>
   </thead>
-</div>
 
   <tbody>
     <% @projects.each do |project| %>
-      <div class="row">
       <tr>
-        <td><%= project.customer %></td>
-        <td><%= project.name %></td>
+        <td><%= project.account_id %></td>
+        <td><%= project.projectName %></td>
         <td><%= project.version %></td>
-        <td><%= project.description %></td>
         <td><%= project.documentType %></td>
         <td><%= project.market %></td>
-        <td><%= project.startDate %></td>
-        <td><%= project.followUp %></td>
-        <td><%= project.pricelist %></td>
-        <td><%= project.projectStage %></td>
-        <td><%= project.T %></td>
+        <td><%= project.randDollar %></td>
+        <td><%= project.randPound %></td>
+        <td><%= project.address %></td>
+        <td><%= project.contactPerson %></td>
+        <td><%= project.contactNumber %></td>
+        <td><%= project.notes %></td>
+        <td><%= project.flag %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-  </div>
     <% end %>
   </tbody>
 </table>

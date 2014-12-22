@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.create(email: 'admin@ita.co.za', password: 'admin123456', role: 'admin')
+User.create(email: 'com@ita.co.za', password: 'com123456', role: 'com')
+User.create(email: 'shop@ita.co.za', password: 'shop123456', role: 'shop')
+AdminUser.create(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+
+Section.create(id: 1, project_id:1)

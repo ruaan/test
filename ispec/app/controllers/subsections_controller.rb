@@ -10,11 +10,13 @@ class SubsectionsController < ApplicationController
   # GET /subsections/1
   # GET /subsections/1.json
   def show
+    @project = Project.all
   end
 
   # GET /subsections/new
   def new
     @subsection = Subsection.new
+    @project = Project.all
   end
 
   # GET /subsections/1/edit
@@ -24,28 +26,16 @@ class SubsectionsController < ApplicationController
   # POST /subsections
   # POST /subsections.json
   def create
+    session[:return_to] ||= request.referer
     @subsection = Subsection.new(subsection_params)
+    @project = Project.all
 
     respond_to do |format|
       if @subsection.save
-        format.html { redirect_to @subsection, notice: 'Subsection was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @subsection }
+        format.html { redirect_to session.delete(:return_to), notice: 'Subsection was successfully created.' }
+        format.json { render action: 'show', status: :created, location: data_show_path }
       else
         format.html { render action: 'new' }
-        format.json { render json: @subsection.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /subsections/1
-  # PATCH/PUT /subsections/1.json
-  def update
-    respond_to do |format|
-      if @subsection.update(subsection_params)
-        format.html { redirect_to @subsection, notice: 'Subsection was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
         format.json { render json: @subsection.errors, status: :unprocessable_entity }
       end
     end
@@ -54,9 +44,10 @@ class SubsectionsController < ApplicationController
   # DELETE /subsections/1
   # DELETE /subsections/1.json
   def destroy
+    session[:return_to] ||= request.referer
     @subsection.destroy
     respond_to do |format|
-      format.html { redirect_to subsections_url }
+      format.html { redirect_to session.delete(:return_to) }
       format.json { head :no_content }
     end
   end

@@ -1,9 +1,11 @@
 class SectionsController < ApplicationController
+  respond_to :html, :js
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
   # GET /sections
   # GET /sections.json
   def index
+    @project = Project.all
     @sections = Section.all
   end
 
@@ -14,6 +16,7 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   def new
+    @project = Project.all
     @section = Section.new
   end
 
@@ -24,12 +27,15 @@ class SectionsController < ApplicationController
   # POST /sections
   # POST /sections.json
   def create
+    session[:return_to] ||= request.referer
+    @project = Project.all
+    #@projects = Project.find(params[:id])
     @section = Section.new(section_params)
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to @section, notice: 'Section was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @section }
+        format.html { redirect_to session.delete(:return_to), notice: 'Section was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @project }
       else
         format.html { render action: 'new' }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -40,9 +46,11 @@ class SectionsController < ApplicationController
   # PATCH/PUT /sections/1
   # PATCH/PUT /sections/1.json
   def update
+    session[:return_to] ||= request.referer
+    @project = Project.all
     respond_to do |format|
       if @section.update(section_params)
-        format.html { redirect_to @section, notice: 'Section was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Section was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -54,9 +62,10 @@ class SectionsController < ApplicationController
   # DELETE /sections/1
   # DELETE /sections/1.json
   def destroy
+    session[:return_to] ||= request.referer
     @section.destroy
     respond_to do |format|
-      format.html { redirect_to sections_url }
+      format.html { redirect_to session.delete(:return_to) }
       format.json { head :no_content }
     end
   end

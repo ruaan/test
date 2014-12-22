@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Section:</strong>
+  <%= @copysub.section_id %>
+</p>
+
+<p>
+  <strong>Subsection:</strong>
+  <%= @copysub.subsection_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @copysub.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @copysub.description %>
+</p>
+
+<%= link_to 'Edit', edit_copysub_path(@copysub) %> |
+<%= link_to 'Back', copysubs_path %>

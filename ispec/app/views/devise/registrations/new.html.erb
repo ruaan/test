@@ -12,6 +12,11 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
+    <div><%= f.label :role %><br />
+      <%= f.text_field :role %></div>
+    <div><%= f.label :training_mode %><br />
+      <%= f.text_field :training_mode %></div>
+
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 

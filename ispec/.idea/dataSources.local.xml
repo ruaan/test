@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails ispec: development" uuid="9469e599-5b32-41ca-b1d5-58bbf636ba98">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+    <data-source name="Rails ispec: test" uuid="3caf114b-763a-457a-bce8-ff0ef7f829fc">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+  </component>
+</project>

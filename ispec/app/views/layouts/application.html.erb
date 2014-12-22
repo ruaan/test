@@ -4,95 +4,41 @@
   <title>Ispec</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+
+
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  <style>
-      .nav , .navbar{height:120px;}
-      #logo { position:absolute;}
-      .col-md-6:last-child {border-left: 1px solid #eee;min-height: 200px;}
-      li {
-          list-style-type: none;
-      }
-      .navbar-nav > li {
-          float: left;
-          height: 120px;
+      <script type="text/javascript">
+      $(document).ready(function(){
+          $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
+      });
+  </script>
 
-          text-align: center;
-          width: 170px;
-      }
-          ul.navbar-nav {margin-left: 140px;}
-      .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-          background-color: #080808;
-          color: #fff;
-          height: 120px;
-          padding-top: 30px;
-      }
-      .navbar-nav > li > a {
-          height: 120px;
-          padding-bottom: 15px;
-          padding-top: 30px;
-      }
-     .col-md-6 a {
-
-          font-size: 23px !important;
-          line-height: 34px !important;
-      }
-      .col-md-6  h3{
-          font-size: 30px;
-      }
-      .col-md-6 .input-group {width:100%;}
-  </style>
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <div id="logo"><img height="170" src="/logo-home.png"/></div>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">iSpec</a>
-    </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/"><i class="fa fa-home fa-4x"></i>
-        </a></li>
-        <li><a href="/data/show"><i class="fa fa-file-text-o fa-4x"></i></a></li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-toggle-on fa-4x"></i><span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="/accounts">view account</a></li>
-            <li><a href="/accounts/new">new account</a></li>
-            <li><a href="/projects">view Projects</a></li>
-            <li><a href="/projects/new">new projects</a></li>
-            <li><a href="/data/generate">generate data</a></li>
-            <li><a href="/data/delete">delete data</a></li>
-
-          </ul>
-        </li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</div>
-<br/>
-<br/>
 
 
-<br/><br/><br/>
+
 
 <div class="container theme-showcase" role="main">
-	 <p class="notice"><%= notice %></p>
+ 	 <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
+  <div class="login" style="float:right;">
+  <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+  <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> |
+      <%= link_to "Login", new_user_session_path %>
+  <% end %>
+  </div>
 <%= yield %>
   <br/>
   <br/>
   <br/>
 </div>
+
 </body>
 </html>

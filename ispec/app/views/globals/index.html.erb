@@ -1,0 +1,47 @@
+<h1>Listing globals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Section</th>
+      <th>Name</th>
+      <th>Section</th>
+      <th>Subsection</th>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Sku</th>
+      <th>Quantity</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Subdecription</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @globals.each do |global| %>
+      <tr>
+        <td><%= global.section_id %></td>
+        <td><%= global.name %></td>
+        <td><%= global.section %></td>
+        <td><%= global.subsection %></td>
+        <td><%= global.image %></td>
+        <td><%= global.title %></td>
+        <td><%= global.sku %></td>
+        <td><%= global.quantity %></td>
+        <td><%= global.name %></td>
+        <td><%= global.description %></td>
+        <td><%= global.subdecription %></td>
+        <td><%= global.price %></td>
+        <td><%= link_to 'Show', global %></td>
+        <td><%= link_to 'Edit', edit_global_path(global) %></td>
+        <td><%= link_to 'Destroy', global, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Global', new_global_path %>

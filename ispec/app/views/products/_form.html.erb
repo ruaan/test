@@ -11,11 +11,6 @@
     </div>
   <% end %>
 
-
-    <div class="field">
-      <%= f.label :subsection_id %><br>
-      <%= f.collection_select(:subsection_id, Subsection.all, :id, :name) %>
-    </div>
   <div class="field">
     <%= f.label :image %><br>
     <%= f.file_field :image %>
@@ -29,14 +24,42 @@
     <%= f.text_field :sku %>
   </div>
   <div class="field">
-    <%= f.label :range %><br>
-    <%= f.text_field :range %>
+    <%= f.label :catagory %><br>
+    <%= f.text_field :catagory %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field">
+    <%= f.label :subdescription %><br>
+    <%= f.text_field :subdescription %>
   </div>
+    <div class="field">
+      <h4 style="font-weight:bold;">Select section to add products to: </h4>
+      <div class="field">
+
+        <%  Section.all.each do |section|   %>
+            <% for subsection in section.subsections %>
+                <%  if section.project_id == @project.id %>
+                    <%= check_box_tag "product[subsection_ids][]", subsection.id, @product.subsection_ids.include?(subsection.id), id: dom_id(subsection) %>
+                    <%= label_tag dom_id(subsection), subsection.name %><br>
+                <%  else %>
+                <% end %>
+            <% end %>
+        <% end %>
+
+      </div>
+      <input type="checkbox" id="checkAll"/>
+      <label for="select_all">Check all sections</label>
+      <div class="actions">
+        <%= f.submit  "Add Product" %>
+      </div>
+    </div>
+
 <% end %>
+</div>

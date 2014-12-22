@@ -1,0 +1,161 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+ *= require simple-sidebar
+ *= require jPushMenu
+
+ *= require font-awesome
+ *= require bootstrap.min
+ *= require bootstrap-notify
+ *= require__directory .
+ *= require_self
+
+ */
+#mymessage {display:none;}
+
+.prev, .next {  padding:5px 10px; color:#fff; text-decoration:none;}
+.prev:hover, .next:hover {  text-decoration:none;}
+.prev { float:left;}
+.next { float:right;}
+#steps { list-style:none; width:100%; overflow:hidden; margin:0px; padding:0px;}
+#steps li {font-size:24px; float:left; padding:10px; color:#b0b1b3;}
+#steps li span {font-size:11px; display:block;}
+#steps li.current { color:#000;}
+#makeWizard { background-color:#b0232a; color:#fff; padding:5px 10px; text-decoration:none; font-size:18px;}
+#makeWizard:hover { background-color:#000;}
+
+
+.nav , .navbar{height:110px;}
+#logo { position:absolute;}
+
+li {
+    list-style-type: none;
+}
+.navbar-nav > li {
+    float: left;
+    height: 120px;
+    text-align: center;
+    width: 170px;
+}
+ul.navbar-nav {margin-left: 140px;}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #080808;
+    color: #fff;
+    height: 120px;
+    padding-top: 30px;
+}
+.navbar-nav > li > a {
+    height: 120px;
+    padding-bottom: 15px;
+    padding-top: 30px;
+}
+.col-md-6 a {
+
+    font-size: 23px !important;
+    line-height: 34px !important;
+}
+.col-md-6  h3{
+    font-size: 30px;
+}
+.col-md-6 .input-group {width:100%;}
+#new_user,#login {width:360px;margin:0 auto;}
+.page-header {
+    border-bottom: 1px solid #000000;
+}
+.darkgreen {background-color:#4E7C95 !important;color:#ffffff !important;}
+.lightgrey {background-color:#ADC5D2 !important;color:#ffffff !important;}
+.lightblue {background-color:#9CBCCD !important;color:#ffffff !important;}
+.darkblue {background-color: #31556d !important;color:#ffffff !important;}
+.veryblue {background-color: #00B5EF !important;color:#ffffff !important;}
+.pink {background-color:#EE3780 !important;color:#ffffff !important;}
+.green {background-color:#B0D236 !important;color:#ffffff !important;}
+.hide{display:none;}
+
+body {background-color: #eeeeee !important;}
+
+.right {background-color: #444444;}
+.mainleft {background-color: #444444;min-height: 1000px;}
+.mainright {min-height: 1000px;position: fixed;float:right;width:60px;margin-left: 405px;padding-left: 0px !important;overflow: auto;}
+.topspace {margin-top:60px;}
+.icons {margin-left: -40px;width:60px;}
+.cbp-spmenu::-webkit-scrollbar { display: none; }
+.cbp-spmenu {
+    overflow-x: scroll;
+    overflow-y: auto;
+    overflow: auto;
+}
+
+.flash{
+
+    -moz-animation: flash 2s ease-out ;
+    -moz-animation-iteration-count: 40;
+
+    -webkit-animation: flash 2s ease-out;
+    -webkit-animation-iteration-count: 40;
+
+    -ms-animation: flash 2s ease-out;
+    -ms-animation-iteration-count: 40;
+
+}
+
+@-webkit-keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#888888;}
+    100% {background-color:none;}
+}
+
+@-moz-keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#888888;}
+    100% {background-color:none;}
+}
+
+@-ms-keyframes flash {
+    0% { background-color:none;}
+    50% { background-color:#888888;}
+    100% {background-color:none;}
+}
+
+
+.white {color:#ffffff !important}
+
+.max { max-width: 85% !important;margin-left: auto;margin-right: auto;}
+.cbp-spmenu-left {overflow: visible !important;}
+.nav-tabs a {color:#000000 !important;}
+.left{margin-left:15px;}
+.dropdown-backdrop {
+    position: static;
+}
+
+#ui-id-7,#ui-id-6 {color:#444444;}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 8px 8px !important;
+}
+.thin {padding-top: 5px !important;padding-bottom: 5px !important;}
+.left input{
+z-index: 999;
+position: relative;
+}
+.quote-panel {margin-bottom: 100px;}
+#spacer {margin-bottom:70px;}
+
+.drop-target-one{
+  border: 5px dashed #D9D9D9;
+  border-radius: 10px;
+  padding: 5em 2em;
+  text-align: center;
+}
+.my-content-panel {
+  overflow: hidden;
+}

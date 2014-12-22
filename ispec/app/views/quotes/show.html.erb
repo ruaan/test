@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @quote.project_id %>
+</p>
+
+<p>
+  <strong>Section:</strong>
+  <%= @quote.section_id %>
+</p>
+
+<p>
+  <strong>Subsection:</strong>
+  <%= @quote.subsection_id %>
+</p>
+
+<p>
+  <strong>Fav:</strong>
+  <%= @quote.fav_id %>
+</p>
+
+<p>
+  <strong>Fav:</strong>
+  <%= @quote.fav %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @quote.image %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @quote.title %>
+</p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @quote.sku %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @quote.category %>
+</p>
+
+<p>
+  <strong>Manufacturer:</strong>
+  <%= @quote.manufacturer %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @quote.price %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @quote.discount %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @quote.description %>
+</p>
+
+<p>
+  <strong>Subdescription:</strong>
+  <%= @quote.subdescription %>
+</p>
+
+<%= link_to 'Edit', edit_quote_path(@quote) %> |
+<%= link_to 'Back', quotes_path %>

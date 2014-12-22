@@ -1,59 +1,344 @@
-<p id="notice"><%= notice %></p>
+<%= render "application/menuLeft" %>
+<%= render "application/menuRight" %>
+<%= render "application/bottomInfo" %>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @project.customer %>
-</p>
+<div id="middlepage" class="max" >
+  <section>
+    <button class="toggle-menu menu-bottom">Training on</button>
+    <br/>
+  </section>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+  <section style="margin:10px 0 ">
 
-<p>
-  <strong>Version:</strong>
-  <%= @project.version %>
-</p>
+  <a href="/data/one"  style="float:right;" class="btn btn-md btn-info white">
+    <i class="fa fa-plus"></i> New Quote</a>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
+    <% if can? :create , @projects %>
+  <button type="button" data-toggle="modal"  data-target="#myModal" onclick="pro()"  style="float:right;margin-right: 20px;" class="btn btn-md btn-danger white">
+    <i class="fa fa-plus"></i> New Product</button>
+    <% end %>
+  </section>
+  <div id="spacer"></div>
 
-<p>
-  <strong>Documenttype:</strong>
-  <%= @project.documentType %>
-</p>
 
-<p>
-  <strong>Market:</strong>
-  <%= @project.market %>
-</p>
+  <div class="row">
+    <div  class="col-md-12 quote-panel">
 
-<p>
-  <strong>Startdate:</strong>
-  <%= @project.startDate %>
-</p>
+        <div class="panel panel-default">
+          <div class="panel-heading darkblue">
+            <h2 class="panel-title">Sections</h2>
+          </div>
+          <div class="panel-body">
+			  <br/>
+			  
+            <%= render "application/sectionButtons" %>
+            <br/>
+            <br/>
+			<br/>
+            <button id="closeAllSlides">Close All</button>
+            <button id="openAllSlides">Open All</button>
 
-<p>
-  <strong>Followup:</strong>
-  <%= @project.followUp %>
-</p>
+            <%  @sections.each do |section|   %>
+                <% if section.name.blank? %>
+                    <% for subsection in section.subsections %>
+                         <table>
+                          <thead>
+                          <th width="100"></th>
+                          <th>Title</th>
+                          <th >SKU</th>
+                          <th>Qty</th>
+                          <th >Description</th>
+                          <th >Price</th>
+                          </thead>
+                          <tbody>
+                          <hr/>
+                          <% for lineitem in subsection.lineitems  %>
+                              <tr>
+                                <td width="20%"><%= image_tag(lineitem.image, :width => 70) if lineitem.image.present? %></td>
+                                <td width="20%"><%= lineitem.title %></td>
+                                <td width="15%"><%= lineitem.sku %></td>
+                                <td width="15%"><%= lineitem.quantity %></td>
+                                <td width="25%"><%= lineitem.description %></td>
+                                <td width="20%"><%= number_to_currency(lineitem.price, unit: "R") %></td>
+                                <td width="20%"><span style="font-size: 20px;float:right;margin-left: 10px;color:#fff !important;"><%= link_to 'Edit',  '#', 'data-target' => "#bbmyModal_#{lineitem.id}", 'data-toggle' => 'modal', :class =>"btn btn-success btn-xs" %></span>
+                                  <div  class="modal fade" id='<%= "bbmyModal_#{lineitem.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                          <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <%= render 'lineitems/edit', lineitem: lineitem %>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-<p>
-  <strong>Pricelist:</strong>
-  <%= @project.pricelist %>
-</p>
+                                        </div>
+                                      </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                  </div><!-- /.modal -->
+                                </td>
+                                <td width="20%"><span style="font-size: 20px;float:right;"><%= link_to 'Delete', lineitem, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-md btn-danger btn-xs white" %></span></td>
+                              </tr>
+                          <% end %>
 
-<p>
-  <strong>Projectstage:</strong>
-  <%= @project.projectStage %>
-</p>
+                          </tbody>
+                        </table>
 
-<p>
-  <strong>T:</strong>
-  <%= @project.T %>
-</p>
+                    <% end %>
+                <% else %>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+                    <div class="header-title">
+                      <h4  style="background-color: #E6E6E6;clear:both;padding:15px 10px;margin-top: 20px;"><i class="fa fa-plus-circle"></i> <span style="margin-left: 20px;"></span><span class="sub-title">Section: <%= section.name %> </span> <%= section.description %>
+                        <span style="font-size: 20px;float:right;margin-left: 10px;"><%= link_to 'Delete', section, method: :delete, data: { confirm: 'Are you sure?' },:class => "btn btn-danger btn-xs" %></span>
+                        <span style="font-size: 20px;float:right;margin-left: 10px;color:#fff !important;"><%= link_to 'Copy',  new_copysec_path({:section_id => section.id, :project_id => @project.id}), 'data-target' => "#copysecModal_#{section.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs" %></span>
+                        <div  class="modal fade" id='<%= "copysecModal_#{section.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Section</h4>
+                              </div>
+                              <div class="modal-body">
+                                <%= render 'copysecs/form', :section_ids => section.id %>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <span style="font-size: 20px;float:right;margin-left: 10px;color:#fff !important;"><%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{section.id}", 'data-toggle' => 'modal', :class =>"btn btn-success btn-xs" %></span>
+                        <div  class="modal fade" id='<%= "myModal_#{section.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Section</h4>
+                              </div>
+                              <div class="modal-body">
+                                <%= render 'sections/projectedit', sections: section %>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <span style="font-size: 20px;float:right;margin-left: 10px;color:#fff !important;"><%= link_to '  Favourite', new_global_path({:section_id => section.id, :project_id => @project.id}), 'data-target' => "#fav_#{section.id}", 'data-toggle' => 'modal', :class =>"btn btn-default btn-xs fa fa-plus" %></span>
+                        <div  class="modal fade" id='<%= "fav_#{section.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Section</h4>
+                              </div>
+                              <div class="modal-body">
+                                <%= render 'globals/add', section_id: section.id %>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                      </h4></div>
+                    </div>
+                    <div class="slide-collapse">
+                      <div class="slide-content">
+                    <% for subsection in section.subsections %>
+                        <% if subsection.name.blank? %>
+                        <% else %>
+							<% copyid = subsection.id %>
+                            <div id="subsection" style="margin-left: 20px;">
+                            <div class="page-header">
+                              <h4 style="background-color: #F1F1F1;clear:both;padding:15px 10px;"> Sub Section: <%= subsection.name %>
+                                <span style="font-size: 20px;float:right;"><%= link_to 'Delete', subsection, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-md btn-danger btn-xs white" %> </span>
+                                <span style="font-size: 20px;float:right;margin-left: 10px;margin-right:10px; color:#fff !important;"><%= link_to 'Copy',  new_copysub_path({:meid => subsection.id, :project_id => @project.id}), 'data-target' => "#copyModal_#{subsection.id}", 'data-toggle' => 'modal', :class =>"btn btn-primary btn-xs" %></span>
+                                <div  class="modal fade" id='<%= "copyModal_#{subsection.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit Section</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <%= render partial: 'copysubs/form'%>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div><!-- /.modal-content -->
+                                  </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                                <span style="font-size: 20px;float:right;margin-left: 10px;color:#fff !important;"><%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{subsection.id}", 'data-toggle' => 'modal', :class =>"btn btn-success btn-xs" %></span>
+                                <div  class="modal fade" id='<%= "myModal_#{subsection.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit Section</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <%= render 'subsections/projectedit', subsections: subsection %>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div><!-- /.modal-content -->
+                                  </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                              </h4>
+                            </div>
+                            <table>
+                              <thead>
+                              <th width="100"></th>
+                              <th>Title</th>
+                              <th>SKU</th>
+                              <th>Qty</th>
+                              <th>Description</th>
+                              <th>Price</th>
+                              </thead>
+                              <tbody>
+                              <hr/>
+                              <% for lineitem in subsection.lineitems  %>
+                                  <tr>
+                                    <td width="20%"><%= image_tag(lineitem.image, :width => 70) if lineitem.image.present? %></td>
+                                    <td width="20%"><%= lineitem.title %></td>
+                                    <td width="15%"><%= lineitem.sku %></td>
+                                    <td width="15%" ><%=lineitem.quantity %>
+                                    <td width="25%"><%= lineitem.description %></td>
+                                    <td width="20%"><%= number_to_currency(lineitem.price, unit: "R") %></td>
+                                    <td width="20%"><span style="font-size: 20px;float:right;margin-left: 10px;color:#fff !important;"><%= link_to 'Edit',  '#', 'data-target' => "#zmyModal_#{lineitem.id}", 'data-toggle' => 'modal', :class =>"btn btn-success btn-xs" %></span>
+                                      <div  class="modal fade" id='<%= "zmyModal_#{lineitem.id}" %>'  role="dialog" aria-labelledby="myModalLabel" >
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                              <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <%= render 'lineitems/edit', lineitem: lineitem %>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                          </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                      </div><!-- /.modal -->
+                                    </td>
+                                    <td width="20%"><span style="font-size: 20px;float:right;"><%= link_to 'Delete', lineitem, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-md btn-danger btn-xs white"  %></span></td>
+                                  </tr>
+                              <% end %>
+                              </tbody>
+                            </table>
+                            </div>
+                       	 	<% end %>
+                          </div>
+                    <% end %>
+                <% end %>
+            <% end %>
+         	</div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+      function section() {
+          $(".modal-body").html("<%= escape_javascript(render 'sections/form') %>");
+          $(".modal-title").html("Add New Section");
+
+      }
+      function global(sectionid) {
+          $(".modal-body").html("<%= escape_javascript(render 'globals/add' ) %>");
+          $(".modal-title").html("Add New Favourite");
+
+      }
+  /*function account() {
+      $(".modal-body").html("");
+      $(".modal-title").html("Add New Customer");
+
+  }*/
+      function fav() {
+          $(".modal-body").html("<%= escape_javascript(render 'data/showfav') %>");
+          $(".modal-title").html("Add Favourite to Quote");
+      }
+      function project() {
+          $(".modal-body").html("<%= escape_javascript(render 'projects/form') %>");
+          $(".modal-title").html("Add New Project");
+      }
+      function sub() {
+          $(".modal-body").html("<%= escape_javascript(render 'subsections/form') %>");
+          $(".modal-title").html("Add New Subsection");
+      }
+      function pro() {
+          $(".modal-body").html("<%= escape_javascript(render 'products/form') %>");
+          $(".modal-title").html("Add New Product");
+      }
+      function editsec() {
+          $(".modal-body").html("<%= escape_javascript(render 'sections/edit') %>");
+          $(".modal-title").html("Edit Section");
+      }
+
+  </script>
+<script>
+    $('.my-content-panel').show();
+    $('.plusright').hide();
+    $(document).ready(function(e){
+        $('.sub-title').on('click',function (e){
+            if($(this).next('.my-content-panel').css('display') != 'block'){
+                $('.active').slideUp('100').removeClass('active');
+                $(this).next('.my-content-panel').addClass('active').slideDown('slow');
+            } else {
+                $('.active').slideUp('100').removeClass('active');
+
+            }
+        });
+    });
+    $(document).ready(function() {
+        $('.header-title').click(function() {
+            $(this).siblings('.slide-collapse').slideToggle();
+            $(this).children('i').toggleClass('fa-minus-circle');
+        });
+
+        $('#closeAllSlides').click(function() {
+            $('.slide-collapse').slideUp();
+            $('.header-title i').addClass('fa-minus-circle');
+        });
+
+        $('#openAllSlides').click(function() {
+            $('.slide-collapse').slideDown();
+            $('.header-title i').removeClass('fa-minus-circle');
+        });
+    });
+</script>
+
+</div>
+
+
+
+

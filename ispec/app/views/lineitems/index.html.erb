@@ -1,0 +1,39 @@
+<h1>Listing lineitems</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Sku</th>
+      <th>Catagory</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Subdescription</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lineitems.each do |lineitem| %>
+      <tr>
+        <td><%= lineitem.image %></td>
+        <td><%= lineitem.title %></td>
+        <td><%= lineitem.sku %></td>
+        <td><%= lineitem.catagory %></td>
+        <td><%= lineitem.price %></td>
+        <td><%= lineitem.description %></td>
+        <td><%= lineitem.subdescription %></td>
+        <td><%= link_to 'Show', lineitem %></td>
+        <td><%= link_to 'Edit', edit_lineitem_path(lineitem) %></td>
+        <td><%= link_to 'Destroy', lineitem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lineitem', new_lineitem_path %>

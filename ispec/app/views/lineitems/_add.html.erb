@@ -1,0 +1,176 @@
+<pre>
+  <%= @testinput.inspect %>
+</pre>
+<div style="width:450px;">
+<%= form_for(product, remote: false) do |f| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="row">
+  <div  class="col-md-8">
+
+  <div class="field">
+
+    <%= image_tag(product.image, :width => 250) if product.image.present? %>
+  </div>
+    </div>
+    <div  class="col-md-4">
+  <div class="field">
+    <%= f.label :title, :readonly=>true %><br>
+    <%= f.text_field :title, :readonly=>true %>
+  </div>
+  <div class="field">
+    <%= f.label :sku, :readonly=>true %><br>
+    <%= f.text_field :sku, :readonly=>true %>
+  </div>
+  <div class="field">
+    <%= f.label :catagory, :readonly=>true %><br>
+    <%= f.text_field :catagory, :readonly=>true %>
+  </div>
+  <div class="field">
+    <%= f.label :price, :readonly=>true %><br>
+    <%= f.number_field :price, :readonly=>true %>
+  </div>
+      <div class="field">
+        <%= f.label :quantity, :readonly=>true %><br>
+        <%= f.text_field :quantity, :readonly=>true %>
+      </div>
+  <div class="field">
+    <%= f.label :description, :readonly=>true %><br>
+    <%= f.text_field :description, :readonly=>true %>
+  </div>
+  <div class="field">
+    <%= f.label :subdescription, :readonly=>true %><br>
+    <%= f.text_field :subdescription, :readonly=>true %>
+  </div>
+      <fieldset class="field" style="display: none;">
+        <ol>
+          <%= f.fields_for :categorization do |categorization| %>
+              <%= render 'categorization_fields', f: categorization %>
+          <% end %>
+        </ol>
+           </fieldset>
+    </div>
+
+  <div class="row">
+    <div  class="col-md-1"></div>
+    <div  class="col-md-11">
+   <h4 style="font-weight:bold;">Select section to add products to: </h4>
+    <div class="field">
+      <ul>
+        <%  Section.all.each do |section|   %>
+            <%  if section.project_id == @project.id %>
+                <li><%= section.name %></li>
+                <ul>
+                  <% for subsection in section.subsections %>
+                      <%  if section.project_id == @project.id %>
+                          <li><%= check_box_tag "lineitem[subsection_ids][]", subsection.id, @lineitem.subsection_ids.include?(subsection.id), id: dom_id(subsection) %>
+                            <%= label_tag dom_id(subsection), subsection.name %><br></li>
+                      <%  else %>
+                      <% end %>
+
+                  <% end %>
+            <%  else %>
+            <% end %>
+            </ul>
+        <% end %>
+      </ul>
+
+      </div>
+
+      <input type="checkbox" id="select_all"/>
+      <label for="select_all">Check all sections</label>
+
+      </div>
+</div>
+
+</div>
+
+<div class="row">
+  <div  class="col-md-1"></div>
+  <div  class="col-md-11">
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" style="color:red !important;" value="">
+      <p>No Installation products needed</p>
+    </label>
+  </div>
+  <div class="checkbox">
+
+    <table>
+      <tr>
+        <td>
+          <label>
+            <input type="checkbox" checked style="margin-top:-15px" value="checked">
+          </label>
+        </td>
+        <td width="20%">
+          <img width="40" src="/uploads/product/image/12/2147483647_19206_copy.jpg" alt="2147483647 19206 copy">
+        </td>
+        <td width="20%">Sand</td>
+        <td width="15%">ITA0014</td>
+        <td width="25%"></td>
+        <td width="20%">R60</td>
+        <td width="20%">
+      </tr>
+    </table>
+
+  </div>
+  <div class="checkbox">
+    <table>
+      <tr>
+        <td>
+          <label>
+            <input type="checkbox" checked style="margin-top:-15px" value="checked">
+          </label>
+        </td>
+
+        <td width="20%">
+          <img width="40" src="/uploads/product/image/13/021711091109_9002_19209.jpg" alt="2147483647 19206 copy">
+        </td>
+        <td width="20%">Filler</td>
+        <td width="15%">ITA0016</td>
+        <td width="25%"></td>
+        <td width="20%">R80</td>
+        <td width="20%">
+      </tr>
+      </tr>
+    </table>
+
+  </div>
+  <div class="checkbox">
+    <table>
+      <tr>
+        <td>
+          <label>
+            <input type="checkbox" checked style="margin-top:-15px" value="checked">
+          </label>
+        </td>
+
+        <td width="20%">
+          <img width="40" src="/uploads/product/image/14/2147483647_22100.jpg" alt="2147483647 22100">
+        </td>
+        <td width="20%">Filler</td>
+        <td width="15%">ITA0016</td>
+        <td width="25%"></td>
+        <td width="20%">R80</td>
+        <td width="20%">
+      </tr>
+      </tr>
+    </table>
+</div>
+    <div class="actions">
+      <%= f.submit  "Add Product" %>
+    </div>
+    </div>
+
+  <% end %>
+</div>

@@ -1,10 +1,9 @@
-Ispec::Application.routes.draw do
-  resources :products
+Ispec::Application.routes.draw do resources :projects
 
-  resources :subsections
+devise_for :admin_users, ActiveAdmin::Devise.config
+ActiveAdmin.routes(self)
 
-  resources :sections
-
+root 'data#one'
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
   get "quotations/index"
   get "quotations/show"
@@ -24,17 +23,54 @@ Ispec::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-  resources :products
-  resources :projects
+  #   resources :products  resources :projects
   resources :accounts
   resources :sections
   resources :subsections
+  resources :copysubs
+  resources :copysecs
+  resources :products
+  resources :globals
+  resources :project_steps
+  resources :trainings
+  resources :favourites
+  resources :quotes
+  resources :lineitems
+  resources :users
+resources :installs
+  get "projects/noprice"
 
+  resources :projects do 
+    member do 
+      get :noprice 
+      get :technoprice 
+      get :tech 
+      get :pdfnoprice 
+      get :pdf 
+    end 
+  end
+
+
+
+  get "users/delete"
+  get "users/show"
+
+
+  get "/welcome/index"
+  #get "/welcome"
   get "/data/delete"
   get "data/show"
   get "data/list"
+  get "data/delete"
+  get "data/pdfnoprice"
+  get "data/pdf"
+  get "data/tech"
+  get "data/technoprice"
+  get "data/noprice"
   get "data/generate"
+  get "data/one"
+   get "data/addfav"
+   get "data/addshow"
 
   # Example resource route with options:
   #   resources :products do
@@ -47,7 +83,7 @@ Ispec::Application.routes.draw do
   #       get 'sold'
   #     end
   #   end
-  root 'welcome#index'
+
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

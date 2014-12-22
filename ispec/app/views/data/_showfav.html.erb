@@ -1,0 +1,47 @@
+<h2>My Favourites</h2>
+
+    <% @globals.each do |global| %>
+ <% if @favcheck == global.name%>
+ <% else%>
+    <hr>
+      <h3 style="background-color:#F2f2f2;padding:10px 5px"><%= global.name %>&nbsp;&nbsp;<%= link_to 'Delete', global, method: :delete, data: { confirm: 'Are you sure?' },:class =>"btn btn-danger btn-xs" %>&nbsp;&nbsp;<%= link_to 'Add', data_addfav_path(global,:favname => global.name, :projectid => @project.id),:class =>"btn btn-primary btn-xs" %>
+    
+    
+	<% @sectioncheck = "" %>
+	<% @favcheck = global.name %>
+	</h3>
+	<% end %>
+	 <% if @sectioncheck == global.section%>
+	 
+	 <% else%>
+      <h4>
+       Section Name : <%= global.section %>
+		<% @subcheck = "" %>
+		<% @sectioncheck = global.section%>
+      
+	  </h4>
+	  <% end %>
+ 	 <% if @subcheck == global.subsection%>
+ 	 <% else %>
+	  <h4>
+        Subection Name : <%= global.subsection %>
+		<% @subcheck = global.subsection%>
+	  </h4>	
+	  <% end %>
+	  <p>
+         <%= image_tag(global.image, :width => 50) if global.image.present? %>
+        <%= global.title %>
+        <%= global.name %>
+        <%= global.description %>
+        <%= global.subdecription %>
+        R&nbsp;<%= global.price %>
+      </p>
+
+        
+    
+    <% end %>
+  
+
+<br>
+
+

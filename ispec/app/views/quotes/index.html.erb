@@ -1,0 +1,53 @@
+<h1>Listing quotes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Section</th>
+      <th>Subsection</th>
+      <th>Fav</th>
+      <th>Fav</th>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Sku</th>
+      <th>Category</th>
+      <th>Manufacturer</th>
+      <th>Price</th>
+      <th>Discount</th>
+      <th>Description</th>
+      <th>Subdescription</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @quotes.each do |quote| %>
+      <tr>
+        <td><%= quote.project_id %></td>
+        <td><%= quote.section_id %></td>
+        <td><%= quote.subsection_id %></td>
+        <td><%= quote.fav_id %></td>
+        <td><%= quote.fav %></td>
+        <td><%= quote.image %></td>
+        <td><%= quote.title %></td>
+        <td><%= quote.sku %></td>
+        <td><%= quote.category %></td>
+        <td><%= quote.manufacturer %></td>
+        <td><%= quote.price %></td>
+        <td><%= quote.discount %></td>
+        <td><%= quote.description %></td>
+        <td><%= quote.subdescription %></td>
+        <td><%= link_to 'Show', quote %></td>
+        <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
+        <td><%= link_to 'Destroy', quote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Quote', new_quote_path %>

@@ -1,0 +1,33 @@
+<%= form_for(@copysec) do |f| %>
+  <% if @copysec.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@copysec.errors.count, "error") %> prohibited this copysec from being saved:</h2>
+
+      <ul>
+      <% @copysec.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+ 
+    <%= f.hidden_field :project_id, :value => params[:project_id] %>
+  </div>
+  <div class="field">
+    
+    <%= f.hidden_field :section_id, :value => params[:section_id] %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Copy Section" %>
+  </div>
+<% end %>
