@@ -1,0 +1,37 @@
+<h1>Listing products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subsection</th>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Sku</th>
+      <th>Range</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.subsection_id %></td>
+        <td> <%= image_tag(product.image, :width => 200) if product.image.present? %></td>
+        <td><%= product.title %></td>
+        <td><%= product.sku %></td>
+        <td><%= product.range %></td>
+        <td><%= product.description %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>

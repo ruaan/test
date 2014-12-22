@@ -1,0 +1,30 @@
+<h1>Data#list</h1>
+<p>Find me in app/views/data/list.html.erb</p>
+<table>
+
+<tbody>
+<% @sections.each do |section| %>
+    <tr>
+      <td><%= section.project_id %></td>
+      <td><%= section.name %></td>
+      <td><%= section.description %></td>
+      <td><%= section.misc %></td>
+      <td><%= link_to 'Show', section %></td>
+      <td><%= link_to 'Edit', edit_section_path(section) %></td>
+      <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+    </tr>
+    <% for subsection in section.subsections %>
+
+        <tr>
+          <td><%= subsection.section_id %></td>
+          <td><%= subsection.name %></td>
+          <td><%= subsection.description %></td>
+          <td><%= link_to 'Show', subsection %></td>
+          <td><%= link_to 'Edit', edit_subsection_path(subsection) %></td>
+          <td><%= link_to 'Destroy', subsection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+<% end %>
+</tbody>
+</table>

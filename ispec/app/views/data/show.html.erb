@@ -1,0 +1,212 @@
+<br/>
+<br/>
+<div class="row">
+
+  <div class="col-lg-8">
+    <br/>
+    <div class="input-group">
+      <select class="form-control">
+        <option value="volvo">Version 1.0 (XXXX) 6/6/14 08h30</option>
+        <option value="saab">Version 1.5 (XXXX) 6/6/14 08h30</option>
+        <option value="mercedes">Version 2.0 (XXXX) 6/6/14 08h30</option>
+        <option value="audi">Version 3.0 (XXXX) 6/6/14 08h30</option>
+      </select>
+
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-8 -->
+  <div class="col-lg-4">
+    <h3></h3>
+  </div>
+</div><!-- /.row -->
+<!-- Fixed navbar -->
+
+<div class="container theme-showcase" role="main">
+
+  <div class="row">
+    <div  class="col-md-6">
+      <div class="page-header">
+        <h3>PROJECTS</h3>
+      </div>
+      <div class="col-md-4">
+        <h5>Customer:</h5>
+      </div>
+      <div  class="col-md-8">
+        <div class="input-group">
+          <select id="mySelect" class="form-control">
+            <option value="">Sun International</option>
+
+          </select>
+        </div>
+        <br/>
+      </div>
+
+      <div  class="col-md-4">
+        <h5>Name:</h5>
+      </div>
+
+      <div  class="col-md-8">
+        <div class="input-group">
+          <input type="text" value="Table Bay" class="form-control">
+        </div>
+        <br/>
+        <br/>
+      </div>
+
+      <p>
+        <button data-toggle="modal" onclick="project()" data-target="#myModal" type="button" class="btn btn-lg btn-success">
+          <i class="fa fa-pencil"></i>
+          Edit Project
+        </button>
+        <button data-toggle="modal" onclick="section()" data-target="#myModal" type="button" class="btn btn-lg btn-primary">
+          <i class="fa fa-plus"></i>
+          Add Section
+        </button>
+
+        <button data-toggle="modal" onclick="sub()" data-target="#myModal" type="button" class="btn btn-lg btn-info">
+          <i class="fa fa-plus"></i>
+          Add Subsection
+        </button>
+
+      </p>
+
+<style>
+    .left .col-md-4 {
+        margin-bottom: 40px;
+    }
+    .right .col-md-6 {margin-bottom: 60px;}
+</style>
+<div class="left">
+      <% if @sections.each do |section|  %>
+
+          <div class="page-header" >
+
+            <h4 style="background-color: #E6E6E6;clear:both;padding:15px 10px;margin-top: 20px;">Section: <%= section.name %>
+
+        <span style="font-size: 8px;float:right;"><%= link_to 'E', edit_section_path(section) %></span>
+          <span style="font-size: 8px;float:right;"><%= link_to 'D', section, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                </h4>
+            </div>
+          <% for subsection in section.subsections %>
+              <div class="page-header">
+                <h4 style="background-color: #F1F1F1;clear:both;padding:15px 10px;"> Sub Section: <%= subsection.name %>
+
+                  <span style="font-size: 8px;float:right;"><%= link_to 'D', subsection, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+                </h4>
+                </div>
+              <% for product in subsection.products %>
+                  <div class="col-md-4"><%= image_tag(product.image, :width => 100) if product.image.present? %></div>
+                  <div class="col-md-4" style="min-height:100px;"><%= product.title %></div>
+                  <div class="col-md-4" style="min-height:100px;"><%= product.description %></div>
+
+
+              <% end %>
+
+            <% end %>
+      <% end.empty? %>
+          <% end %>
+
+
+
+      </div>
+    </div>
+
+    <div  class="col-md-6">
+      <div  class="col-md-6">
+      <div class="page-header">
+        <h3>PRODUCTS</h3>
+
+      </div>
+        </div>
+      <div  class="col-md-6">
+        <button style="margin-left: 160px;margin-top: 45px;" data-toggle="modal" onclick="pro()" data-target="#myModal" type="button" class="btn btn-sm btn-info">
+          <i class="fa fa-plus"></i>Add Product
+        </button>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+                          Search
+                        </button> </span>
+        </div><!-- /input-group -->
+
+    <table>
+      <tbody>
+<div class="right">
+      <h4>Recently Added</h4>
+      <% @products.each do |product| %>
+          <div  class="col-md-6">
+            <h3><%= product.title %></h3>
+            <p><%= image_tag(product.image, :width => 200) if product.image.present? %></p>
+
+            <p><%= product.sku %></p>
+            <p><%= product.range %></p>
+            <p><%= product.description %></p>
+
+            <p><%= link_to 'Add', edit_product_path(product) %></p>
+
+          </div>
+      <% end %>
+</div>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="btn-group btn-group-justified">
+    <div class="btn-group">
+      <button type="button" onclick="" class="btn btn-lg btn-primary">   <i class="fa fa-plus"></i>
+        Email Quote</button>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-lg btn-success"> <i class="fa fa-plus"></i>
+        Print Quote</button>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-lg btn-info"> Save to CRM</button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script></script>
+</div>
+<!-- /container -->
+<script>
+    function section() {
+        $(".modal-body").html("<%= escape_javascript(render 'sections/form') %>");
+        $("#myModalLabel").html("Add New Account");
+    }
+    function project() {
+        $(".modal-body").html("<%= escape_javascript(render 'projects/form') %>");
+        $("#myModalLabel").html("Edit Project");
+    }
+    function sub() {
+        $(".modal-body").html("<%= escape_javascript(render 'subsections/form') %>");
+        $("#myModalLabel").html("Add New Subsection");
+    }
+    function pro() {
+        $(".modal-body").html("<%= escape_javascript(render 'products/form') %>");
+        $("#myModalLabel").html("Add New Product");
+    }
+    document.getElementById("mySelect").disabled=true;
+    $(document).ready(function() { $('div:empty').remove(); });
+</script>
