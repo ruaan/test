@@ -31,8 +31,6 @@ class GlobalsController < InheritedResources::Base
    # POST /globals
    # POST /globals.json
    def create
-     session[:return_to] ||= request.referer
-
 
      @sectionx = global_params[:section_id]
 
@@ -61,14 +59,8 @@ class GlobalsController < InheritedResources::Base
 
 
      respond_to do |format|
-       if @global.save
-         format.html { redirect_to session.delete(:return_to), notice: 'Favourite was successfully created.' }
-         format.json { render action: 'show', status: :created, location: @global }
-       else
-         format.html { render action: 'new' }
-         format.json { render json: @global.errors, status: :unprocessable_entity }
-       end
-     end
+
+       save_route_back(@global)
 
    end
 
@@ -110,4 +102,3 @@ class GlobalsController < InheritedResources::Base
       params.require(:global).permit(:section_id, :name, :section, :subsection, :image, :title, :sku, :quantity, :name, :description, :subdecription, :price)
     end
 end
-
