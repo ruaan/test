@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   validates :subsection_ids, :presence => true
-  after_save :copy_stuff
+  after_update :copy_stuff
   mount_uploader :image, PictureUploader
 
   has_many :categorizations
@@ -23,6 +23,10 @@ class Product < ActiveRecord::Base
   def copy_stuff
     #return unless self.new_record?
    # @projects = Project.find(params[:id])
+   session[:line1] = "Save Quote"
+   session[:line2] = 'Save current quote by clicking the flashing quote button on the left hand menu.'
+   session[:line3] = 'Followed by the green button at the top. This will allow you to add quote info.'
+   session[:blink] = '.project'
 
   end
 

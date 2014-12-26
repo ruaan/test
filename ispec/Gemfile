@@ -6,10 +6,12 @@ gem 'rails_12factor', group: :production
 gem 'rails', '4.1.8'
 
 
+
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-# Mysql 
+# Mysql
 
 #gem 'mysql2'
 
@@ -17,7 +19,7 @@ gem 'sqlite3'
 gem 'font-awesome-sass'
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+#gem 'bootstrap'
 
 #drag ad drop
 gem 'jquery-form-validator-rails', '~> 0.0.1'

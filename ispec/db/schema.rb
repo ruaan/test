@@ -218,6 +218,11 @@ ActiveRecord::Schema.define(version: 20141219085022) do
     t.datetime "updated_at"
   end
 
+  create_table "sections_subs", id: false, force: true do |t|
+    t.integer "section_id"
+    t.integer "sub_id"
+  end
+
   create_table "subsections", force: true do |t|
     t.integer  "section_id"
     t.string   "name"

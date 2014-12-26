@@ -51,18 +51,10 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    session[:return_to] ||= request.referer
+    
     @product = Product.new(product_params)
     @product.subsection_ids = params[:product][:subsection_ids]
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to session.delete(:return_to), notice: 'Product was successfullyz created.' }
-        format.json { render action: 'show', status: :created, location: @product }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
+    save_route_back(@product)
   end
 
   # PATCH/PUT /products/1
@@ -100,16 +92,7 @@ class ProductsController < ApplicationController
   #  if test.lenght < 2
   #    punt
   #    end
-    respond_to do |format|
-      if @product.update(product_params)
-
-          format.html { redirect_to session.delete(:return_to), notice: 'Product was successfullyz updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @product.errors, status: :unprocessable_entity }
-        end
-    end
+  edit_route_back(@product)
   end
 
   # DELETE /products/1
