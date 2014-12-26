@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    
+
     @product = Product.new(product_params)
     @product.subsection_ids = params[:product][:subsection_ids]
     save_route_back(@product)
@@ -62,11 +62,11 @@ class ProductsController < ApplicationController
   def update
     @installs = Install.all
     @install = Install.new
-    session[:line1] = "Save Quote"
-    session[:line2] = 'Save current quote by clicking the flashing quote button on the left hand menu.'
-    session[:line3] = 'Followed by the green button at the top. This will allow you to add quote info.'
-    session[:blink] = '.project'
-    session[:return_to] ||= request.referer
+    # session[:line1] = "Save Quote"
+    # session[:line2] = 'Save current quote by clicking the flashing quote button on the left hand menu.'
+    # session[:line3] = 'Followed by the green button at the top. This will allow you to add quote info.'
+    # session[:blink] = '.project'
+    # session[:return_to] ||= request.referer
    # @projects = Project.find(params[:id])
    # @testinput = Project.find(params[:id])
    @product.subsection_ids = params[:product][:subsection_ids]
