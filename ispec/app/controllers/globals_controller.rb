@@ -58,7 +58,6 @@ class GlobalsController < InheritedResources::Base
 
 
 
-     respond_to do |format|
 
        save_route_back(@global)
 
@@ -67,19 +66,7 @@ class GlobalsController < InheritedResources::Base
    # PATCH/PUT /globals/1
    # PATCH/PUT /globals/1.json
    def update
-      session[:return_to] ||= request.referer
-
-
-     respond_to do |format|
-       if @global.update(global_params)
-         format.html { redirect_to session.delete(:return_to), notice: 'Global was successfully updated.' }
-         format.json { head :no_content }
-       else
-         format.html { render action: 'edit' }
-         format.json { render json: @global.errors, status: :unprocessable_entity }
-       end
-     end
-
+     edit_route_back(@global)
    end
 
    # DELETE /globals/1
