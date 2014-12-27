@@ -29,13 +29,12 @@ class ProductsController < ApplicationController
   def show
     @found = Product.find(params[:id])
     @found2 = Categorization.where(product_id: 5)
-    @testinput = "hello"
      #@me = @found2.quantitys
   end
 
   # GET /products/new
   def new
-    @testinput = "hello"
+
     @product = Product.new
 
   end
@@ -45,7 +44,7 @@ class ProductsController < ApplicationController
   end
 
   def manage
-    @testinput = "hello"
+    
   end
 
   # POST /products
